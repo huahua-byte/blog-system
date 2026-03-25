@@ -3,6 +3,7 @@ import type {
   PostArchiveGroup,
   PostCategoryGroup,
   PostFilterOptions,
+  PostPage,
   PostTagGroup
 } from '../types/post';
 import { comparePosts, shouldIncludePost } from './posts.data';
@@ -216,6 +217,29 @@ export function getPostsByMonth(
   options: Pick<PostFilterOptions, 'isProduction'> = {}
 ): Post[] {
   return getAllPosts(posts, { ...options, month });
+}
+
+export function paginatePosts(
+  posts: Post[],
+  page: number,
+  pageSize: number,
+  options: Pick<PostFilterOptions, 'isProduction'> = {}
+): PostPage {
+  const visiblePosts = getAllPosts(posts, options);
+  const normalizedPageSize = Number.isFinite(pageSize) && pageSize > 0 ? Math.floor(pageSize) : 1;
+  const total = visiblePosts.length;
+  const totalPages = Math.max(1, Math.ceil(total / normalizedPageSize));
+  const requestedPage = Number.isFinite(page) ? Math.floor(page) : 1;
+  const currentPage = Math.min(Math.max(requestedPage, 1), totalPages);
+  const startIndex = (currentPage - 1) * normalizedPageSize;
+
+  return {
+    items: visiblePosts.slice(startIndex, startIndex + normalizedPageSize),
+    total,
+    totalPages,
+    currentPage,
+    pageSize: normalizedPageSize
+  };
 }
 
 export function getAdjacentPosts(
