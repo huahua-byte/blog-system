@@ -15,6 +15,13 @@ export interface Post extends PostFrontmatter {
   month: string;
 }
 
+export interface SearchDocument {
+  title: string;
+  description: string;
+  content: string;
+  url: string;
+}
+
 export interface PostArchiveGroup {
   month: string;
   label: string;
