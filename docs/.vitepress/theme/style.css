@@ -336,13 +336,17 @@ a {
 }
 
 .tags-page,
-.tag-detail-page {
+.tag-detail-page,
+.categories-page,
+.category-detail-page {
   display: grid;
   gap: 2rem;
 }
 
 .tags-page__hero,
-.tag-detail-page__hero {
+.tag-detail-page__hero,
+.categories-page__hero,
+.category-detail-page__hero {
   display: grid;
   gap: 0.75rem;
   padding: 1.5rem;
@@ -354,12 +358,16 @@ a {
 }
 
 .tags-page__hero h1,
-.tag-detail-page__hero h1 {
+.tag-detail-page__hero h1,
+.categories-page__hero h1,
+.category-detail-page__hero h1 {
   margin: 0;
 }
 
 .tags-page__eyebrow,
-.tag-detail-page__eyebrow {
+.tag-detail-page__eyebrow,
+.categories-page__eyebrow,
+.category-detail-page__eyebrow {
   margin: 0;
   color: var(--site-accent);
   font-size: 0.85rem;
@@ -369,7 +377,9 @@ a {
 }
 
 .tags-page__intro,
-.tag-detail-page__intro {
+.tag-detail-page__intro,
+.categories-page__intro,
+.category-detail-page__intro {
   margin: 0;
   max-width: 42rem;
   color: var(--site-muted);
@@ -508,7 +518,9 @@ a {
   }
 
   .tags-page__hero,
-  .tag-detail-page__hero {
+  .tag-detail-page__hero,
+  .categories-page__hero,
+  .category-detail-page__hero {
     padding: 1.15rem;
   }
 
