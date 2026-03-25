@@ -59,6 +59,19 @@ function matchesMonth(post: Post, month?: string): boolean {
   return post.month === month;
 }
 
+function normalizePostUrl(url: string): string {
+  if (!url) {
+    return '/';
+  }
+
+  const withoutIndex = url.replace(/index\.html$/, '');
+  const withoutExtension = withoutIndex.replace(/\.html$/, '');
+  const withLeadingSlash = withoutExtension.startsWith('/') ? withoutExtension : `/${withoutExtension}`;
+  const trimmed = withLeadingSlash.replace(/\/+$/, '');
+
+  return trimmed === '' ? '/' : trimmed;
+}
+
 export function getAllPosts(posts: Post[], options: PostFilterOptions = {}): Post[] {
   const {
     category,
@@ -203,6 +216,29 @@ export function getPostsByMonth(
   options: Pick<PostFilterOptions, 'isProduction'> = {}
 ): Post[] {
   return getAllPosts(posts, { ...options, month });
+}
+
+export function getAdjacentPosts(
+  posts: Post[],
+  currentUrl: string,
+  options: Pick<PostFilterOptions, 'isProduction'> = {}
+): { prevPost: Post | null; nextPost: Post | null } {
+  const visiblePosts = getAllPosts(posts, options);
+  const currentIndex = visiblePosts.findIndex(
+    (post) => normalizePostUrl(post.url) === normalizePostUrl(currentUrl)
+  );
+
+  if (currentIndex === -1) {
+    return {
+      prevPost: null,
+      nextPost: null
+    };
+  }
+
+  return {
+    prevPost: visiblePosts[currentIndex - 1] ?? null,
+    nextPost: visiblePosts[currentIndex + 1] ?? null
+  };
 }
 
 export function getPostArchives(

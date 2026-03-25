@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 import { Content, useData, useRoute, withBase } from 'vitepress';
+import PostDetailLayout from './components/PostDetailLayout.vue';
 
 type NavItem = {
   text: string;
@@ -10,6 +11,11 @@ type NavItem = {
 const { site, theme } = useData();
 const route = useRoute();
 const isNavOpen = ref(false);
+
+const isPostDetailPage = computed(() => {
+  const currentPath = normalizePath(route.path);
+  return currentPath.startsWith('/posts/') && currentPath !== '/posts/';
+});
 
 const navItems = computed<NavItem[]>(() => {
   const nav = theme.value.nav;
@@ -87,8 +93,9 @@ watch(
 
     <main class="site-main">
       <div class="site-main__inner">
-        <div class="site-content">
-          <Content />
+        <div class="site-content" :class="{ 'site-content--post': isPostDetailPage }">
+          <PostDetailLayout v-if="isPostDetailPage" />
+          <Content v-else />
         </div>
       </div>
     </main>
