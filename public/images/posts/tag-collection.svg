@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">标签整理方法封面</title>
+  <desc id="desc">绿色背景上的标签整理方法文字</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3f6212" />
+      <stop offset="100%" stop-color="#365314" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <text x="96" y="250" fill="#f7fee7" font-family="Georgia, serif" font-size="68">标签整理方法</text>
+  <text x="96" y="340" fill="#d9f99d" font-family="Arial, sans-serif" font-size="30">Tag Organization Example</text>
+</svg>
