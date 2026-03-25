@@ -22,6 +22,13 @@ export interface PostArchiveGroup {
   count: number;
 }
 
+export interface PostTagGroup {
+  name: string;
+  slug: string;
+  posts: Post[];
+  count: number;
+}
+
 export interface PostFilterOptions {
   category?: string;
   tag?: string;
