@@ -5,18 +5,13 @@ export default defineConfig({
   description: 'A VitePress-based blog system starter.',
   themeConfig: {
     nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Posts', link: '/posts/' }
+      { text: '首页', link: '/' },
+      { text: '分类', link: '/categories/' },
+      { text: '标签', link: '/tags/' },
+      { text: '归档', link: '/archives/' },
+      { text: '关于', link: '/about/' }
     ],
-    sidebar: [
-      {
-        text: 'Content',
-        items: [
-          { text: 'Overview', link: '/' },
-          { text: 'Posts', link: '/posts/' }
-        ]
-      }
-    ],
+    sidebar: false,
     socialLinks: [{ icon: 'github', link: 'https://github.com/' }]
   }
 });
