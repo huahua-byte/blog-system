@@ -3,6 +3,16 @@ import { comparePosts, shouldIncludePost } from './posts.data';
 
 const DEFAULT_IS_PRODUCTION = process.env.NODE_ENV === 'production';
 
+function formatArchiveLabel(month: string): string {
+  const [year, value] = month.split('-');
+
+  if (!year || !value) {
+    return month;
+  }
+
+  return `${year} 年 ${value} 月`;
+}
+
 function matchesCategory(post: Post, category?: string): boolean {
   if (!category) {
     return true;
@@ -88,7 +98,7 @@ export function getPostArchives(
     .sort(([monthA], [monthB]) => monthB.localeCompare(monthA))
     .map(([month, archivePosts]) => ({
       month,
-      label: month,
+      label: formatArchiveLabel(month),
       posts: archivePosts.sort(comparePosts),
       count: archivePosts.length
     }));
