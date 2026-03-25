@@ -1,4 +1,10 @@
-import type { Post, PostArchiveGroup, PostFilterOptions, PostTagGroup } from '../types/post';
+import type {
+  Post,
+  PostArchiveGroup,
+  PostCategoryGroup,
+  PostFilterOptions,
+  PostTagGroup
+} from '../types/post';
 import { comparePosts, shouldIncludePost } from './posts.data';
 
 const DEFAULT_IS_PRODUCTION = process.env.NODE_ENV === 'production';
@@ -19,6 +25,14 @@ function normalizeTagName(tag: string): string {
 
 export function normalizeTagSlug(tag: string): string {
   return encodeURIComponent(normalizeTagName(tag).toLowerCase().replace(/\s+/g, '-'));
+}
+
+function normalizeCategoryName(category: string): string {
+  return category.trim().replace(/\s+/g, ' ');
+}
+
+export function normalizeCategorySlug(category: string): string {
+  return encodeURIComponent(normalizeCategoryName(category).toLowerCase().replace(/\s+/g, '-'));
 }
 
 function matchesCategory(post: Post, category?: string): boolean {
@@ -75,6 +89,59 @@ export function getPostsByTag(
   options: Pick<PostFilterOptions, 'isProduction'> = {}
 ): Post[] {
   return getAllPosts(posts, { ...options, tag });
+}
+
+export function getPostCategories(
+  posts: Post[],
+  options: Pick<PostFilterOptions, 'isProduction'> = {}
+): PostCategoryGroup[] {
+  const groupedPosts = new Map<string, PostCategoryGroup>();
+
+  for (const post of getAllPosts(posts, options)) {
+    for (const rawCategory of post.categories) {
+      const name = normalizeCategoryName(rawCategory);
+
+      if (!name) {
+        continue;
+      }
+
+      const existingGroup = groupedPosts.get(name);
+
+      if (existingGroup) {
+        existingGroup.posts.push(post);
+        existingGroup.count += 1;
+        continue;
+      }
+
+      groupedPosts.set(name, {
+        name,
+        slug: normalizeCategorySlug(name),
+        posts: [post],
+        count: 1
+      });
+    }
+  }
+
+  return Array.from(groupedPosts.values())
+    .map((group) => ({
+      ...group,
+      posts: group.posts.sort(comparePosts)
+    }))
+    .sort((groupA, groupB) => {
+      if (groupA.count !== groupB.count) {
+        return groupB.count - groupA.count;
+      }
+
+      return groupA.name.localeCompare(groupB.name, 'zh-Hans-CN');
+    });
+}
+
+export function getPostCategoryBySlug(
+  posts: Post[],
+  slug: string,
+  options: Pick<PostFilterOptions, 'isProduction'> = {}
+): PostCategoryGroup | undefined {
+  return getPostCategories(posts, options).find((group) => group.slug === slug);
 }
 
 export function getPostTags(
