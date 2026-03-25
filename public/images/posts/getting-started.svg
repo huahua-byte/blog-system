@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">快速开始封面</title>
+  <desc id="desc">蓝绿色渐变背景上的快速开始文字</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f766e" />
+      <stop offset="100%" stop-color="#164e63" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <text x="96" y="250" fill="#f8fafc" font-family="Georgia, serif" font-size="72">快速开始</text>
+  <text x="96" y="340" fill="#ccfbf1" font-family="Arial, sans-serif" font-size="32">VitePress Blog Post Example</text>
+</svg>

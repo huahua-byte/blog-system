@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">内容策划草稿封面</title>
+  <desc id="desc">纸张色背景上的内容策划草稿文字</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#78716c" />
+      <stop offset="100%" stop-color="#44403c" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <text x="96" y="250" fill="#fafaf9" font-family="Georgia, serif" font-size="68">内容策划草稿</text>
+  <text x="96" y="340" fill="#e7e5e4" font-family="Arial, sans-serif" font-size="30">Draft Post Example</text>
+</svg>
