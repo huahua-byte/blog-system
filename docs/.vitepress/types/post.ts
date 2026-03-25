@@ -36,6 +36,14 @@ export interface PostCategoryGroup {
   count: number;
 }
 
+export interface PostPage {
+  items: Post[];
+  total: number;
+  totalPages: number;
+  currentPage: number;
+  pageSize: number;
+}
+
 export interface PostFilterOptions {
   category?: string;
   tag?: string;
